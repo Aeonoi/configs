@@ -31,7 +31,6 @@
     btop
     openssh
     tree
-    ghostty
     fzf
     # pstree
     # ripgrep

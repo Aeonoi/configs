@@ -171,8 +171,10 @@
       fontforge-fonttools
       ffmpeg-full
       poppler-utils
+      ghostty
       spotify
       pv
+      stow
     ];
   };
 }
