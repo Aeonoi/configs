@@ -11,14 +11,10 @@
     ../../modules/nvidia.nix
   ];
 
-  # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
   boot.loader.efi.canTouchEfiVariables = true;
-  boot.extraModprobeConfig = "options thinkpad_acpi fan_control=1";
+  boot.extraModprobeConfig = "options thinkpad_acpi fan_control=1"; # Enables ThinkPad fan control
 
-  # Use latest kernel.
-  # boot.kernelPackages = pkgs.linuxPackages_latest;
-  # Use LTS kernel.
   boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "flover-nixos"; # Define your hostname.
@@ -74,14 +70,6 @@
       intel-media-driver # For Broadwell (2014) or newer processors. LIBVA_DRIVER_NAME=iHD
       vpl-gpu-rt # For QSV/VPL API support on Tiger Lake (2020) or newer processors.
     ];
-  };
-
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; 
-    dedicatedServer.openFirewall = true; 
-    localNetworkGameTransfers.openFirewall = true;
   };
  
   # DO NOT EDIT!! OS installed on 11/01/2026
