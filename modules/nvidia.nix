@@ -7,16 +7,6 @@
 
   services.lact.enable = true;
 
-  # Enable OpenGL
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-    extraPackages = with pkgs; [
-      intel-media-driver # For Broadwell (2014) or newer processors. LIBVA_DRIVER_NAME=iHD
-      vpl-gpu-rt # For QSV/VPL API support on Tiger Lake (2020) or newer processors.
-    ];
-  };
-
   # Load nvidia driver for Xorg and Wayland
   services.xserver.videoDrivers = ["modesetting" "nvidia"];
 

@@ -112,6 +112,9 @@
     # firmware updates
     services.fwupd.enable = true;
 
+    # Firewall
+    networking.firewall.enable = true;
+
     # 1Password
     programs._1password.enable = true;
     programs._1password-gui = {
