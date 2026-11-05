@@ -2,8 +2,8 @@
 
 {
   imports = [ 
-    # Include the results of the hardware scan.
     ./hardware-configuration.nix
+    ./power_management.nix
     ../../modules/base.nix
     ../../modules/desktop_environments/default.nix
     ../../modules/laptop.nix
