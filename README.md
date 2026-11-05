@@ -2,7 +2,15 @@
 
 ## Dotfiles
 
-Managed and handled by `stow`
+Managed and handled by `stow`.
+
+First `cd` into the location of the git repo directory (make sure to be in the root of the directory). Then we use `stow`.
+
+Run with `stow -nv --target="$HOME" config` first.
+
+Once it looks good you can run with `stow -v --target="$HOME" config`.
+
+`man stow` for more information and options.
 
 ## NixOS 
 
