@@ -21,6 +21,21 @@
   services.logind.settings.Login.HandlePowerKey = "suspend-then-hibernate";
   services.logind.settings.Login.HandlePowerKeyLongPress = "poweroff";
 
+  # Better power management with Tuned 
+  services.power-profiles-daemon.enable = false;
+
+  services.tuned.enable = true;
+  services.tuned.ppdSupport = true;
+
+  # Better power saving mode
+  services.tuned.profiles = {
+    powersave = {
+      cpu = {
+        energy_performance_preference = "balance_power";
+      };
+    };
+  };
+
   environment.systemPackages = with pkgs; [
     brightnessctl
     dhcpcd
