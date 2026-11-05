@@ -8,6 +8,7 @@
     ../../modules/desktop_environments/default.nix
     ../../modules/laptop.nix
     ../../modules/personal.nix
+    ../../modules/nvidia.nix
   ];
 
   # Use the systemd-boot EFI boot loader.
@@ -18,7 +19,7 @@
   # Use latest kernel.
   # boot.kernelPackages = pkgs.linuxPackages_latest;
   # Use LTS kernel.
-  boot.kernelPackages = pkgs.linuxPackages;
+  boot.kernelPackages = pkgs.linuxPackages_latest;
 
   networking.hostName = "flover-nixos"; # Define your hostname.
   # networking.wireless.enable = true;  # Enables wireless support via wpa_supplicant.
@@ -65,21 +66,6 @@
     ];
   };
 
-  # Firewall
-  networking.firewall.enable = true;
-
-  programs.steam = {
-    enable = true;
-    remotePlay.openFirewall = true; 
-    dedicatedServer.openFirewall = true; 
-    localNetworkGameTransfers.openFirewall = true;
-  };
- 
-  #
-  # DRIVERS
-  #
-  services.lact.enable = true;
-
   # Enable OpenGL
   hardware.graphics = {
     enable = true;
@@ -90,28 +76,14 @@
     ];
   };
 
-  # Load nvidia driver for Xorg and Wayland
-  services.xserver.videoDrivers = ["modesetting" "nvidia"];
 
-  hardware.nvidia = {
-
-    # Modesetting is required.
-    modesetting.enable = true;
-    powerManagement.enable = true;
-    powerManagement.finegrained = true;
-    open = true;
-    nvidiaSettings = true;
-    package = config.boot.kernelPackages.nvidiaPackages.stable;
-    prime = {
-      offload = {
-        enable = true;
-        enableOffloadCmd = true;
-      };
-      intelBusId = "PCI:0:2:0";
-      nvidiaBusId = "PCI:1:0:0";
-    };
+  programs.steam = {
+    enable = true;
+    remotePlay.openFirewall = true; 
+    dedicatedServer.openFirewall = true; 
+    localNetworkGameTransfers.openFirewall = true;
   };
-
+ 
   # DO NOT EDIT!! OS installed on 11/01/2026
   system.stateVersion = "26.05"; # Did you read the comment?
 }
