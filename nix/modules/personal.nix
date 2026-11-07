@@ -47,7 +47,6 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      jack.enable = true;
       wireplumber.enable = true;
     };
 
@@ -157,22 +156,14 @@
         "dom.security.https_only_mode" = true;
         "media.ffmpeg.vaapi.enabled" = true;
         "ui.key.menuAccessKeyFocuses" = false;
+        "general.autoScroll" = true;
       };
-    };
-
-    programs.google-chrome = {
-      enable = true;
-      commandLineArgs = [
-        "--disable-gpu"
-        "--enable-features=VaapiVideoDecoder"
-        "--enable-blink-features=MiddleClickAutoscroll"
-      ];
     };
 
     environment.systemPackages = with pkgs; [
       fontforge-fonttools
-      ffmpeg-full
       ffmpeg-normalize
+      ffmpeg-full
       alacritty
       spotify
       stow

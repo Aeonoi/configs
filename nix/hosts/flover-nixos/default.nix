@@ -12,7 +12,10 @@
     ../../modules/home/base.nix
   ];
 
-  boot.loader.systemd-boot.enable = true;
+  boot.loader.systemd-boot = {
+    enable = true;
+  consoleMode = "2";
+  };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.extraModprobeConfig = "options thinkpad_acpi fan_control=1"; # Enables ThinkPad fan control
 
