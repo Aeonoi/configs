@@ -12,9 +12,17 @@ Once it looks good you can run with `stow -v --target="$HOME" config`.
 
 `man stow` for more information and options.
 
+---
+
 ## NixOS 
 
 ### Enable flakes
+
+This repo already contains the necessary flake files (`flake.nix` and `flake.lock`) so it is not required to init again. 
+
+To init: `sudo nix flake init`
+
+---
 
 ### Build/Upgrade
 
@@ -31,6 +39,8 @@ To update/upgrade:
 This should update the flake.lock file and rebuilds a new generation.
 
 `nix flake update && sudo nixos-rebuild switch --flake .`
+
+---
 
 #### Without flakes
 
