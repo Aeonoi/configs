@@ -11,10 +11,13 @@
     localNetworkGameTransfers.openFirewall = true;
   };
 
+  programs.gamemode.enable = true;
+  programs.gamescope.enable = true;
+
   environment.systemPackages = with pkgs; [
-    gamemode
     heroic
     mangohud
+    mesa-demos
   ];
 }
 

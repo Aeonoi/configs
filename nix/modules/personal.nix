@@ -8,14 +8,12 @@
   ];
 
   config = {
-    # Auto-login is fine with FDE
+    # User related setup
     services.getty = {
-      autologinUser = "flover";
+      autologinUser = "flover"; # Auto login
       autologinOnce = true;
     };
 
-
-    # User related setup
     users.users."flover" = {
       isNormalUser = true;
       description = "Dylan";
@@ -116,13 +114,6 @@
     # Firewall
     networking.firewall.enable = true;
 
-    # 1Password
-    programs._1password.enable = true;
-    programs._1password-gui = {
-      enable = true;
-      polkitPolicyOwners = [ "jon" ];
-    };
-
     # Allow directly executing .AppImage
     programs.appimage = {
       enable = true;
@@ -170,11 +161,18 @@
       cifs-utils
       fontforge-fonttools
       ffmpeg-full
+      ffmpeg-normalize
       poppler-utils
       ghostty
       spotify
       pv
       stow
+      google-chrome
+      zathura
+      imv
+      mpv
+      ani-cli
+      texlab
     ];
   };
 }

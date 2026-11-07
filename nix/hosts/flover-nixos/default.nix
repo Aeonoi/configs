@@ -9,6 +9,7 @@
     ../../modules/laptop.nix
     ../../modules/personal.nix
     ../../modules/nvidia.nix
+    ../../modules/home/base.nix
   ];
 
   boot.loader.systemd-boot.enable = true;

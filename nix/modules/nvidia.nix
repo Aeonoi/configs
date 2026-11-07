@@ -29,6 +29,4 @@
     };
   };
 
-  # DO NOT EDIT!! OS installed on 11/01/2026
-  system.stateVersion = "26.05"; # Did you read the comment?
 }
