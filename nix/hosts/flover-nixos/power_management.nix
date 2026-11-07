@@ -30,8 +30,8 @@ let
       # Battery PL1 (55W), PL1 Window (10s), and PL2 (135W)
       if [ -d "$RAPL_DIR" ]; then
         echo $(( 55 * 1000000 )) > "$RAPL_DIR/constraint_0_power_limit_uw"
-        echo $(( 135 * 1000000 )) > "$RAPL_DIR/constraint_0_power_limit_uw"
         echo 10000000 > "$RAPL_DIR/constraint_0_time_window_us"
+        echo $(( 135 * 1000000 )) > "$RAPL_DIR/constraint_1_power_limit_uw"
       fi
     fi
   '';

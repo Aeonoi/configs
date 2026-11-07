@@ -12,7 +12,6 @@
   time.timeZone = "America/New_York";
 
   programs.fish.enable = true;
-  programs.firefox.enable = true;
   programs.neovim = {
     enable = true;
     viAlias = true;

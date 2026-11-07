@@ -8,12 +8,6 @@
   ];
 
   config = {
-    # User related setup
-    services.getty = {
-      autologinUser = "flover"; # Auto login
-      autologinOnce = true;
-    };
-
     users.users."flover" = {
       isNormalUser = true;
       description = "Dylan";
@@ -53,8 +47,8 @@
       alsa.enable = true;
       alsa.support32Bit = true;
       pulse.enable = true;
-      # If you want to use JACK applications, uncomment this
-      # jack.enable = true;
+      jack.enable = true;
+      wireplumber.enable = true;
     };
 
     services.pipewire.wireplumber.extraConfig."10-bluez" = {
@@ -156,20 +150,32 @@
       # sddm.enableGnomeKeyring = true;
     };
 
+    programs.firefox = {
+      enable = true;
+      preferences = {
+        "privacy.trackingprotection.enabled" = true;
+        "dom.security.https_only_mode" = true;
+        "media.ffmpeg.vaapi.enabled" = true;
+        "ui.key.menuAccessKeyFocuses" = false;
+      };
+    };
+
+    programs.google-chrome = {
+      enable = true;
+      commandLineArgs = [
+        "--disable-gpu"
+        "--enable-features=VaapiVideoDecoder"
+        "--enable-blink-features=MiddleClickAutoscroll"
+      ];
+    };
+
     environment.systemPackages = with pkgs; [
-      aria2
-      cifs-utils
       fontforge-fonttools
       ffmpeg-full
       ffmpeg-normalize
-      poppler-utils
-      ghostty
+      alacritty
       spotify
-      pv
       stow
-      google-chrome
-      zathura
-      imv
       mpv
       ani-cli
       texlab

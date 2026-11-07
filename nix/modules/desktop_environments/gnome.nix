@@ -27,6 +27,8 @@
       papers
       loupe
 
+      ghostty
+
       gnomeExtensions.appindicator
       gnomeExtensions.caffeine
       gnomeExtensions.vitals

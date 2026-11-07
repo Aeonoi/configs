@@ -13,8 +13,9 @@
     environment.systemPackages = with pkgs; [
     ];
 
-    security.pam.services = {
-      sddm.enableGnomeKeyring = true;
+    services.displayManager = {
+      autoLogin.enable = true;
+      autoLogin.user = "flover";
     };
   };
 }

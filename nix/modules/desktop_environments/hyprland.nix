@@ -44,6 +44,9 @@
       # j4-dmenu-desktop
       ranger
       alacritty
+      zathura
+      imv
+      poppler-utils
     ];
   };
 }

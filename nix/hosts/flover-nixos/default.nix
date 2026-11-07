@@ -72,6 +72,13 @@
       vpl-gpu-rt # For QSV/VPL API support on Tiger Lake (2020) or newer processors.
     ];
   };
+
+  # Storage clean up
+  nix.gc = {
+    automatic = true;
+    dates = "weekly";
+    options = "--delete-older-than 15d";
+  };
  
   # DO NOT EDIT!! OS installed on 11/01/2026
   system.stateVersion = "26.05"; # Did you read the comment?

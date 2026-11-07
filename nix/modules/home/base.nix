@@ -7,22 +7,22 @@
   home-manager.users."flover" =
     { config, pkgs, ... }:
     {
-      programs.bash.enable = true;
-      programs.fish = {
-        enable = true;
-        shellInitLast = builtins.readFile ../../../config/.config/fish/config.fish;
-      };
-      programs.git = {
-        enable = true;
-        includes = [ { path = ../../../config/.config/git/config; } ];
-      };
-      programs.neovim = {
-        enable = true;
-        initLua = builtins.readFile ../../../config/.config/nvim/init.lua;
-        defaultEditor = true;
-        withPython3 = true;
-        withRuby = false;
-      };
+      # programs.bash.enable = true;
+      # programs.fish = {
+      #   enable = true;
+      #   shellInitLast = builtins.readFile ../../../config/.config/fish/config.fish;
+      # };
+      # programs.git = {
+      #   enable = true;
+      #   includes = [ { path = ../../../config/.config/git/config; } ];
+      # };
+      # programs.neovim = {
+      #   enable = true;
+      #   initLua = builtins.readFile ../../../config/.config/nvim/init.lua;
+      #   defaultEditor = true;
+      #   withPython3 = true;
+      #   withRuby = false;
+      # };
 
       home.packages = with pkgs; [
         # bat
