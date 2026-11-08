@@ -37,7 +37,7 @@
     };
 
     # No X11
-    services.xserver.enable = false;
+    services.xserver.enable = true;
 
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;

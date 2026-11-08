@@ -17,9 +17,9 @@
       home.sessionVariables = {
         BROWSER = "firefox";
         XCURSOR_SIZE = "48";
-        GDK_BACKEND = "wayland,x11";
-        QT_AUTO_SCREEN_SCALE_FACTOR = "1";
-        QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
+        # GDK_BACKEND = "wayland,x11";
+        # QT_AUTO_SCREEN_SCALE_FACTOR = "1";
+        # QT_WAYLAND_DISABLE_WINDOWDECORATION = "1";
         XWAYLAND_DPI = "192";
       };
       home.file.".Xresources".text = ''
