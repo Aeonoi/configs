@@ -70,33 +70,18 @@
     };
 
     # Printing
-    services.avahi = {
-      enable = true;
-      nssmdns4 = true;
-      openFirewall = true;
-    };
-    services.printing = {
-      enable = true;
-      drivers = with pkgs; [
-        cups-filters
-        cups-browsed
-      ];
-    };
-
-    # Screen sharing
-    xdg.portal = {
-      enable = true;
-      config = {
-        common = {
-          default = "wlr";
-        };
-      };
-      wlr.enable = true;
-      wlr.settings.screencast = {
-        chooser_type = "simple";
-        chooser_cmd = "${pkgs.slurp}/bin/slurp -f 'Monitor: %o' -or";
-      };
-    };
+    # services.avahi = {
+    #   enable = true;
+    #   nssmdns4 = true;
+    #   openFirewall = true;
+    # };
+    # services.printing = {
+    #   enable = true;
+    #   drivers = with pkgs; [
+    #     cups-filters
+    #     cups-browsed
+    #   ];
+    # };
 
     # Input
     services.libinput.enable = true;
@@ -105,21 +90,13 @@
     services.fwupd.enable = true;
 
     # Firewall
-    networking.firewall.enable = true;
+    # networking.firewall.enable = true;
 
     # Allow directly executing .AppImage
     programs.appimage = {
       enable = true;
       binfmt = true;
     };
-
-    fonts.packages = with pkgs; [
-      noto-fonts
-      noto-fonts-color-emoji
-      liberation_ttf
-      tex-gyre.heros
-      public-sans
-    ];
 
     # Install and configure (but do not auto-start) sshd
     services.openssh = {
@@ -139,15 +116,6 @@
     # Security for GUI session
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
-    security.pam.services = {
-      greetd.enableGnomeKeyring = true;
-
-      # If using a display manager such as GDM
-      #gdm.enableGnomeKeyring = true;
-
-      # If using sddm 
-      # sddm.enableGnomeKeyring = true;
-    };
 
     programs.firefox = {
       enable = true;
@@ -159,6 +127,14 @@
         "general.autoScroll" = true;
       };
     };
+
+    fonts.packages = with pkgs; [
+      ubuntu-classic
+      noto-fonts-color-emoji
+      liberation_ttf
+      tex-gyre.heros
+      public-sans
+    ];
 
     environment.systemPackages = with pkgs; [
       fontforge-fonttools

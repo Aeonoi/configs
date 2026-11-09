@@ -24,5 +24,6 @@
     };
 
     security.pam.services.plasma-login-manager.kwallet.enable = true;
+    security.pam.services."flover".kwallet.enable = false;
   };
 }

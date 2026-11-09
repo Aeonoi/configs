@@ -9,12 +9,11 @@
     ../../modules/laptop.nix
     ../../modules/personal.nix
     ../../modules/nvidia.nix
-    ../../modules/home/base.nix
   ];
 
   boot.loader.systemd-boot = {
     enable = true;
-  consoleMode = "2";
+    consoleMode = "2";
   };
   boot.loader.efi.canTouchEfiVariables = true;
   boot.extraModprobeConfig = "options thinkpad_acpi fan_control=1"; # Enables ThinkPad fan control
@@ -73,6 +72,10 @@
     extraPackages = with pkgs; [
       intel-media-driver # For Broadwell (2014) or newer processors. LIBVA_DRIVER_NAME=iHD
       vpl-gpu-rt # For QSV/VPL API support on Tiger Lake (2020) or newer processors.
+      libvdpau-va-gl
+      intel-gpu-tools
+      libva-utils
+      clinfo
     ];
   };
 
