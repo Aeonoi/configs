@@ -67,6 +67,7 @@
             };
             "org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";
+              enable-hot-corners = false;
             };
             # "org/gnome/mutter/wayland" = { 
             #   xwayland-scaling-factor = 1;

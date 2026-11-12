@@ -13,7 +13,7 @@
 
   # Fingerprint reader
   services.fprintd = {
-    enable = true;
+    enable = false;
     # tod = { };
   };
 

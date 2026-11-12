@@ -2,7 +2,8 @@
 
 let 
   cpuPowerScript = pkgs.writeShellScript "cpu-power-manager-script" ''
-    RAPL_DIR="/sys/class/powercap/intel-rapl:0"
+    RAPL_DIR1="/sys/class/powercap/intel-rapl:0"
+    RAPL_DIR2="/sys/class/powercap/intel-rapl:1"
     AC_STATUS=$(cat /sys/class/power_supply/AC/online 2>/dev/null || echo 1)
 
     if [ "$AC_STATUS" -eq 0 ]; then
@@ -15,9 +16,12 @@ let
 
       # Battery PL1 (15W), PL1 Window (10s), and PL2 (25W)
       if [ -d "$RAPL_DIR" ]; then
-        echo $(( 15 * 1000000 )) > "$RAPL_DIR/constraint_0_power_limit_uw"
         echo 10000000 > "$RAPL_DIR/constraint_0_time_window_us"
-        echo $(( 25 * 1000000 )) > "$RAPL_DIR/constraint_1_power_limit_uw"
+        echo $(( 15 * 1000000 )) > "$RAPL_DIR1/constraint_0_power_limit_uw"
+        echo $(( 25 * 1000000 )) > "$RAPL_DIR1/constraint_1_power_limit_uw"
+
+        echo $(( 15 * 1000000 )) > "$RAPL_DIR2/constraint_0_power_limit_uw"
+        echo $(( 25 * 1000000 )) > "$RAPL_DIR2/constraint_1_power_limit_uw"
       fi
     else
       echo "Switching to AC Mode..."
@@ -29,9 +33,12 @@ let
 
       # Battery PL1 (55W), PL1 Window (10s), and PL2 (135W)
       if [ -d "$RAPL_DIR" ]; then
-        echo $(( 75 * 1000000 )) > "$RAPL_DIR/constraint_0_power_limit_uw"
         echo 10000000 > "$RAPL_DIR/constraint_0_time_window_us"
-        echo $(( 135 * 1000000 )) > "$RAPL_DIR/constraint_1_power_limit_uw"
+        echo $(( 75 * 1000000 )) > "$RAPL_DIR1/constraint_0_power_limit_uw"
+        echo $(( 135 * 1000000 )) > "$RAPL_DIR1/constraint_1_power_limit_uw"
+
+        echo $(( 75 * 1000000 )) > "$RAPL_DIR2/constraint_0_power_limit_uw"
+        echo $(( 135 * 1000000 )) > "$RAPL_DIR2/constraint_1_power_limit_uw"
       fi
     fi
   '';

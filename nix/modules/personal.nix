@@ -114,7 +114,6 @@
     systemd.services.sshd.wantedBy = lib.mkForce [ ];
 
     # Security for GUI session
-    services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
 
     programs.firefox = {
@@ -128,8 +127,17 @@
       };
     };
 
+    programs.google-chrome = {
+      enable = true;
+      commandLineArgs = [
+        "--disable-gpu"
+        "--enable-features=VaapiVideoDecoder"
+        "--enable-blink-features=MiddleClickAutoscroll"
+      ];
+    };
+
     fonts.packages = with pkgs; [
-      ubuntu-classic
+      noto-fonts
       noto-fonts-color-emoji
       liberation_ttf
       tex-gyre.heros
@@ -140,7 +148,6 @@
       fontforge-fonttools
       ffmpeg-normalize
       ffmpeg-full
-      alacritty
       spotify
       stow
       mpv
