@@ -11,11 +11,20 @@
     services.displayManager.plasma-login-manager.enable = true;
     services.desktopManager.plasma6.enable = true;
 
+    environment.plasma6.excludePackages = with pkgs.kdePackages; [
+      elisa
+      discover
+      qrca
+    ];
+
     environment.systemPackages = with pkgs; [
     ];
 
     environment.sessionVariables = {
       # KWIN_DRM_DISABLE_TRIPLE_BUFFERING = "1";
+      KWIN_LOG_PERFORMANCE_DATA = "1";
+      QT_LOGGING_RULES = "kwin_*.debug=true;qt.*.debug=false";
+      QT_FORCE_STDERR_LOGGING = "1";
       XCURSOR_THEME = "Breeze";
       XCURSOR_SIZE = "48";
     };

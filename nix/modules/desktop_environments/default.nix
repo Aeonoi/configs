@@ -12,7 +12,7 @@
   # Enable desktop environment that you want
   # Best to just keep one to avoid conflicting config, themes, etc
   gnome.enable = false;
-  kde.enable = true;
-  hyprland.enable = false;
+  kde.enable = false;
+  hyprland.enable = true;
   sway.enable = false;
 }

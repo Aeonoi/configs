@@ -96,7 +96,7 @@ hl.config({
 		-- Please see https://wiki.hypr.land/Configuring/Advanced-and-Cool/Tearing/ before you turn this on
 		allow_tearing = false,
 
-		layout = "scrolling",
+		layout = "dwindle",
 	},
 
 	decoration = {
@@ -238,6 +238,9 @@ hl.gesture({
 hl.bind(mainMod .. " + SPACE", hl.dsp.exec_cmd(ipc .. "panel-toggle launcher"))
 
 hl.bind(superMod .. " + L", hl.dsp.exec_cmd(ipc .. "session lock-and-suspend"))
+
+hl.bind(superMod .. " + B", hl.dsp.exec_cmd(ipc .. "power-cycle"))
+
 
 -- Screenshot a monitor
 hl.bind("PRINT", hl.dsp.exec_cmd(ipc .. "screenshot-fullscreen pick"))

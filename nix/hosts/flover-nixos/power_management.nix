@@ -14,7 +14,6 @@ let
         echo 30 > /sys/devices/system/cpu/intel_pstate/max_perf_pct
       fi
 
-      # Battery PL1 (15W), PL1 Window (10s), and PL2 (25W)
       if [ -d "$RAPL_DIR" ]; then
         echo 10000000 > "$RAPL_DIR/constraint_0_time_window_us"
         echo $(( 15 * 1000000 )) > "$RAPL_DIR1/constraint_0_power_limit_uw"
@@ -26,14 +25,12 @@ let
     else
       echo "Switching to AC Mode..."
       
-      # Max CPU performance to percentage
       if [ -f /sys/devices/system/cpu/intel_pstate/max_perf_pct ]; then
         echo 85 > /sys/devices/system/cpu/intel_pstate/max_perf_pct
       fi
 
-      # Battery PL1 (55W), PL1 Window (10s), and PL2 (135W)
       if [ -d "$RAPL_DIR" ]; then
-        echo 10000000 > "$RAPL_DIR/constraint_0_time_window_us"
+        echo 0 > "$RAPL_DIR/constraint_0_time_window_us"
         echo $(( 75 * 1000000 )) > "$RAPL_DIR1/constraint_0_power_limit_uw"
         echo $(( 135 * 1000000 )) > "$RAPL_DIR1/constraint_1_power_limit_uw"
 

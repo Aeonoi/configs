@@ -8,6 +8,10 @@
   ];
 
   config = {
+    environment.sessionVariables = {
+      NIXOS_OZONE_WL = "1";
+    };
+
     users.users."flover" = {
       isNormalUser = true;
       description = "Dylan";
@@ -37,7 +41,7 @@
     };
 
     # No X11
-    services.xserver.enable = true;
+    services.xserver.enable = false;
 
     # Enable sound with pipewire.
     services.pulseaudio.enable = false;
@@ -130,14 +134,13 @@
     programs.google-chrome = {
       enable = true;
       commandLineArgs = [
-        "--disable-gpu"
         "--enable-features=VaapiVideoDecoder"
         "--enable-blink-features=MiddleClickAutoscroll"
       ];
     };
 
     fonts.packages = with pkgs; [
-      noto-fonts
+      nerd-fonts.noto
       noto-fonts-color-emoji
       liberation_ttf
       tex-gyre.heros
@@ -154,5 +157,12 @@
       ani-cli
       texlab
     ];
+
+    home-manager.users."flover" = { config, pkgs, ... }: {
+      xdg.configFile."electron-flags.conf".text = ''
+        --enable-features=UseOzonePlatform
+        --ozone-platform=wayland
+      '';
+    };
   };
 }

@@ -16,15 +16,21 @@
   ];
 
   environment.systemPackages = with pkgs; [
-    cargo
     gcc
+    clang-tools
+    valgrind
     gdb
     gnumake
+    
     nodejs
+
     openjdk
+
     python3
+    basedpyright
+
+    cargo
     rustup
-    valgrind
   ];
 
   # Make uv able to execute Python (and more)

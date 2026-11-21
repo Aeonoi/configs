@@ -1,3 +1,4 @@
+# Hyprland with Noctalia
 { config, lib, pkgs, ... }:
 
 {
@@ -13,9 +14,16 @@
       imv
       poppler-utils
     ];
+    
+    programs.noctalia.enable = true;
+    services.displayManager.noctalia-greeter.enable = true;
 
     services.gnome.gnome-keyring.enable = true;
     security.polkit.enable = true;
+
+    programs.hyprland = {
+      enable = true;
+    };
 
     home-manager.users."flover" = { config, pkgs, ... }: {
       # Enable and configure Noctalia fully in Home Manager
@@ -23,7 +31,7 @@
         enable = true;
         settings = {
           shell = {
-            font = "JetBrains Nerd Font Mono";
+            # font = "JetBrains Nerd Font Mono";
             polkit_agent = true;
           };
           location = {
@@ -41,14 +49,9 @@
             position = "bottom";
             start = ["launcher" "wallpaper" "workspaces"];
             center = ["control-center" "clock" "media"];
-            end = ["tray" "notifications" "network" "bluetooth" "volume" "brightness" "battery" "session"];
+            end = ["tray" "notifications" "bluetooth" "volume" "battery" "session"];
           };
         };
-      };
-
-      wayland.windowManager.hyprland = {
-        enable = true;
-        extraConfig = builtins.readFile ../../../config/.config/hypr/hyprland.lua;
       };
 
       home.sessionVariables = {
@@ -64,22 +67,22 @@
         Xft.dpi: 192
       '';
 
-      # xdg.mimeApps = {
-      #   enable = true;
-      #   defaultApplications = {
-      #     "application/pdf" = [ "org.pwmt.zathura.desktop" ];
-      #     "application/xps" = [ "org.pwmt.zathura.desktop" ];
-      #     "application/vnd.ms-xpsdocument" = [ "org.pwmt.zathura.desktop" ];
-      #     "image/gif" = [ "imv.desktop" ];
-      #     "image/jpeg" = [ "imv.desktop" ];
-      #     "image/jpg" = [ "imv.desktop" ];
-      #     "image/png" = [ "imv.desktop" ];
-      #     "x-scheme-handler/http" = [ "firefox.desktop" ];
-      #     "x-scheme-handler/https" = [ "firefox.desktop" ];
-      #     "text/html" = [ "firefox.desktop" ];
-      #     "text/plain" = [ "nvim.desktop" ];
-      #   };
-      # };
+      xdg.mimeApps = {
+        enable = true;
+        defaultApplications = {
+          "application/pdf" = [ "org.pwmt.zathura.desktop" ];
+          "application/xps" = [ "org.pwmt.zathura.desktop" ];
+          "application/vnd.ms-xpsdocument" = [ "org.pwmt.zathura.desktop" ];
+          "image/gif" = [ "imv.desktop" ];
+          "image/jpeg" = [ "imv.desktop" ];
+          "image/jpg" = [ "imv.desktop" ];
+          "image/png" = [ "imv.desktop" ];
+          "x-scheme-handler/http" = [ "firefox.desktop" ];
+          "x-scheme-handler/https" = [ "firefox.desktop" ];
+          "text/html" = [ "firefox.desktop" ];
+          "text/plain" = [ "nvim.desktop" ];
+        };
+      };
 
       home.stateVersion = "26.05";
     };

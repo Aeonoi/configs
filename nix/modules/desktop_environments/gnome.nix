@@ -15,11 +15,6 @@
     services.gnome.games.enable = false;
     services.desktopManager.gnome = {
       enable = true;
-      # extraGSettingsOverridePackages = [ pkgs.mutter ]; 
-      # extraGSettingsOverrides = ''
-      #   [org.gnome.mutter.wayland]
-      #   xwayland-scaling-factor=uint32 1
-      # '';
     };
 
     environment.sessionVariables = {
@@ -32,14 +27,31 @@
       papers
       loupe
 
-      ghostty
+      # ghostty
+      ptyxis # "new" gnome-terminal
+
+      # Themes the app titlebars
+      qadwaitadecorations
+      qadwaitadecorations-qt6
+      # Themes the apps
+      qgnomeplatform
+      qgnomeplatform-qt6
 
       gnomeExtensions.appindicator
       gnomeExtensions.caffeine
+      gnomeExtensions.tiling-assistant
       gnomeExtensions.vitals
+      gnomeExtensions.dash-to-panel
       gnomeExtensions.dash-to-dock
+      gnomeExtensions.just-perfection
       gnome-tweaks
     ];
+
+    qt = {
+      enable = true;
+      platformTheme = "gnome";
+      style = "adwaita-dark";
+    };
 
     security.pam.services = {
       gdm.enableGnomeKeyring = true;
@@ -64,6 +76,7 @@
           settings = {
             "org/gnome/desktop/interface" = {
               text-scaling-factor = 1;
+              icon-theme = "Adwaita";
             };
             "org/gnome/desktop/interface" = {
               color-scheme = "prefer-dark";
@@ -74,17 +87,6 @@
             # };
           };
         };
-
-        home.activation.fixSteamIcons = ''
-          for f in ~/.local/share/applications/*.desktop; do
-            [ -f "$f" ] || continue
-            id=$(grep -Eo 'steam://rungameid/[0-9]+' "$f" | sed 's#.*/##') || true
-            [ -n "$id" ] || continue
-            last=$(tail -n1 "$f" || true)
-            want="StartupWMClass=steam_app_$id"
-            [ "$last" = "$want" ] || echo "$want" >> "$f"
-          done
-        '';
 
         home.stateVersion = "26.05";
       };
