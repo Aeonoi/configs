@@ -38,7 +38,7 @@ To update/upgrade:
 
 This should update the flake.lock file and rebuilds a new generation.
 
-`nix flake update && sudo nixos-rebuild switch --flake .`
+`nix flake update --flake . && sudo nixos-rebuild switch --flake .`
 
 ---
 

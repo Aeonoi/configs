@@ -400,6 +400,7 @@ require("lazy").setup({
 					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
 					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
 					vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+                    vim.keymap.set("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>")
 					vim.keymap.set({ 'n', 'v' }, '<leader>ga', vim.lsp.buf.code_action, opts)
 					vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
 					vim.keymap.set('n', '<leader>F', function()
