@@ -1,5 +1,10 @@
 # Development environment
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -21,16 +26,22 @@
     valgrind
     gdb
     gnumake
-    
+
     nodejs
 
     openjdk
 
     python3
+    ruff
     basedpyright
 
     cargo
     rustup
+
+    nil
+    texlab
+    bash-language-server
+    lua-language-server
   ];
 
   # Make uv able to execute Python (and more)

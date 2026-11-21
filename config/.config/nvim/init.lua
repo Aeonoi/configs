@@ -81,52 +81,34 @@ vim.filetype.add({
 })
 
 -- KEYMAPS
-local keymap = vim.keymap
 local opts = { noremap = true, silent = true }
 
 -- Tabs
-keymap.set("n", "<tab>", ":tabnext<Return>", opts)
-keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
+vim.keymap.set("n", "<tab>", ":tabnext<Return>", opts)
+vim.keymap.set("n", "<s-tab>", ":tabprev<Return>", opts)
 
 -- yank to clipboard
-keymap.set("n", "<leader>y", '"+y')
-keymap.set("n", "<leader>yy", '"+yy')
-keymap.set("n", "<leader>Y", '"+Y')
-keymap.set("x", "<leader>y", '"+y')
-keymap.set("x", "<leader>Y", '"+Y')
+vim.keymap.set("n", "<leader>y", '"+y')
+vim.keymap.set("n", "<leader>yy", '"+yy')
+vim.keymap.set("n", "<leader>Y", '"+Y')
+vim.keymap.set("x", "<leader>y", '"+y')
+vim.keymap.set("x", "<leader>Y", '"+Y')
 
 -- Move selected text up or down
-keymap.set("v", "K", ":m '<-2<CR>gv=gv")
-keymap.set("v", "J", ":m '>+1<CR>gv=gv")
+vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 
 -- delete, not cut
-keymap.set("n", "<leader>d", '"_d')
-keymap.set("x", "<leader>d", '"_d')
+vim.keymap.set("n", "<leader>d", '"_d')
+vim.keymap.set("x", "<leader>d", '"_d')
 
 -- <C-a> is my global leader for tmux - increments
-keymap.set("n", "<C-a>", "<nop>")
-keymap.set("v", "<C-a>", "<nop>")
-keymap.set("n", "<C-Z>", "<nop>")
-keymap.set("n", "<C-Z>", "<C-A>")
-keymap.set("v", "<C-Z>", "<nop>")
-keymap.set("v", "<C-Z>", "<C-A>")
-
---LSP
-keymap.set("n", "<C-j>", function()
-	vim.diagnostic.goto_prev()
-end, opts)
-keymap.set("n", "<C-k>", function()
-	vim.diagnostic.goto_next()
-end, opts)
-keymap.set("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>")
-keymap.set("n", "<leader>rr", "<cmd>lua vim.lsp.buf.rename()<CR>")
-keymap.set("n", "<leader>ga", "<cmd>lua vim.lsp.buf.code_action()<CR>") -- shows the fixes
-keymap.set("n", "<leader>gg", "<cmd>lua vim.diagnostic.open_float()<CR>") -- shows the current diagnostic udner the cursor
-keymap.set("n", "<leader>gd", "<cmd>lua vim.lsp.buf.definition()<CR>") -- opens up the manual, the actual implementation of the method
-keymap.set("n", "<leader>gw", function()
-	vim.lsp.buf.workspace_symbol()
-end, opts)
-keymap.set("n", "<leader>gr", "<cmd>lua vim.lsp.buf.references()<CR>") -- show occurances of currently hovered
+vim.keymap.set("n", "<C-a>", "<nop>")
+vim.keymap.set("v", "<C-a>", "<nop>")
+vim.keymap.set("n", "<C-Z>", "<nop>")
+vim.keymap.set("n", "<C-Z>", "<C-A>")
+vim.keymap.set("v", "<C-Z>", "<nop>")
+vim.keymap.set("v", "<C-Z>", "<C-A>")
 
 -- highlights yanks
 local autocmd = vim.api.nvim_create_autocmd
@@ -333,126 +315,121 @@ require("lazy").setup({
 			})
 		end,
 	},
-	{
-		"neovim/nvim-lspconfig",
-		dependencies = {
-			"williamboman/mason.nvim",
-			{ "williamboman/mason-lspconfig.nvim", config = function() end },
-		},
+    {
+		'neovim/nvim-lspconfig',
 		config = function()
-			local lspconfig = require("lspconfig")
-			local has_cmp, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
-			local capabilities = vim.tbl_deep_extend(
-				"force",
-				{},
-				vim.lsp.protocol.make_client_capabilities(),
-				has_cmp and cmp_nvim_lsp.default_capabilities() or {}
-			)
+			-- Setup language servers.
 
-			-- Server configurations
-			local servers = {
-				-- https://github.com/yioneko/vtsls/blob/main/packages/service/configuration.schema.json#L1063
-				vtsls = {
-					root_dir = lspconfig.util.root_pattern("tsconfig.json", "package.json", "jsconfig.json"),
-					filetypes = {
-						"javascript",
-						"javascriptreact",
-						"javascript.jsx",
-						"typescript",
-						"typescriptreact",
-						"typescript.tsx",
-					},
-					settings = {
-						complete_function_calls = true,
-						vtsls = {
-							enableMoveToFileCodeAction = true,
-							autoUseWorkspaceTsdk = true,
-							experimental = {
-								completion = {
-									enableServerSideFuzzyMatch = true,
-								},
-							},
-						},
-						typescript = {
-							updateImportsOnFileMove = { enabled = "always" },
-							suggest = {
-								completeFunctionCalls = true,
-							},
-							format = {
-								enable = false,
-							},
-							tsserver = {
-								maxTsServerMemory = 12288,
-							},
-							inlayHints = {
-								enumMemberValues = { enabled = true },
-								functionLikeReturnTypes = { enabled = true },
-								parameterNames = { enabled = "literals" },
-								parameterTypes = { enabled = true },
-								propertyDeclarationTypes = { enabled = true },
-								variableTypes = { enabled = false },
-							},
-						},
-						javascript = {
-							tsserver = {
-								maxTsServerMemory = 5120,
-							},
-							inlayHints = {
-								enumMemberValues = { enabled = true },
-								functionLikeReturnTypes = { enabled = true },
-								parameterNames = { enabled = "literals" },
-								parameterTypes = { enabled = true },
-								propertyDeclarationTypes = { enabled = true },
-								variableTypes = { enabled = false },
-							},
-						},
-					},
-				},
-				clangd = {
-					filetypes = { "c", "h", "cpp" },
-					cmd = { "clangd", "--background-index", "--fallback-style={BasedOnStyle: LLVM, IndentWidth: 4}", "-xc++-header", "-xc-header" },
-					single_file_support = true,
-				},
-				rust_analyzer = {
-					root_dir = lspconfig.util.root_pattern(".git", "Cargo.toml"),
-					check = {
-						command = "clippy",
-						features = "all",
-					},
-				},
-			}
-
-			require("mason").setup()
-			require("nvim-web-devicons").setup()
-			require("mason-lspconfig").setup({
-				handlers = {
-					function(server_name)
-						if server_name ~= "jdtls" then
-							local server = servers[server_name] or {}
-							server.capabilities =
-								vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-							require("lspconfig")[server_name].setup(server)
-						end
-					end,
-				},
-			})
-			vim.diagnostic.config({
-				update_in_insert = false,
-				underline = true,
-				-- float = {
-				-- 	focusable = false,
-				-- 	style = "minimal",
-				-- 	source = "always",
-				-- 	header = "",
-				-- 	prefix = "",
-				-- },
-				-- virtual_text = false,
-                virtual_text = {
-                    spacing = 8,
-                    min = vim.diagnostic.severity.ERROR,
+			-- Rust
+			vim.lsp.config["rust-analyzer"] = {
+                cargo = {
+                    features = "all",
                 },
+                checkOnSave = {
+                    enable = true,
+                },
+                check = {
+                    command = "clippy",
+                },
+                imports = {
+                    group = {
+                        enable = false,
+                    },
+                },
+                completion = {
+                    postfix = {
+                        enable = false,
+                    },
+                },
+            }
+			vim.lsp.enable('rust_analyzer')
+
+			-- Bash LSP
+			if vim.fn.executable('bash-language-server') == 1 then
+				vim.lsp.enable('bash-language-server')
+			end
+
+			-- texlab for LaTeX
+			if vim.fn.executable('texlab') == 1 then
+				vim.lsp.enable('texlab')
+			end
+
+			-- Ruff for Python
+			if vim.fn.executable('ruff') == 1 then
+				vim.lsp.enable('ruff')
+			end
+
+            -- BasedPyrigt for Python
+			if vim.fn.executable('basedpyright') == 1 then
+				vim.lsp.enable('basedpyright')
+			end
+
+            -- Clangd for C/C++
+            vim.lsp.config["clangd"] = {
+                filetypes = { "c", "h", "cpp" },
+                cmd = { "clangd", "--fallback-style=webkit" },
+                single_file_support = true,
+            }
+            vim.lsp.enable('clangd')
+
+			-- nil for nix
+			if vim.fn.executable('nil') == 1 then
+				vim.lsp.enable('nil_ls')
+			end
+
+			-- Global mappings.
+			-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+			vim.keymap.set('n', '<leader>gg', vim.diagnostic.open_float)
+			vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+			vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+			vim.keymap.set('n', '<leader>q', vim.diagnostic.setloclist)
+
+			-- Use LspAttach autocommand to only map the following keys
+			-- after the language server attaches to the current buffer
+			vim.api.nvim_create_autocmd('LspAttach', {
+				group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+				callback = function(ev)
+					-- Enable completion triggered by <c-x><c-o>
+					vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+					-- Buffer local mappings.
+					-- See `:help vim.lsp.*` for documentation on any of the below functions
+					local opts = { buffer = ev.buf }
+					vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+					vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+					vim.keymap.set('n', 'K', vim.lsp.buf.hover, opts)
+					vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+					vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+					vim.keymap.set({ 'n', 'v' }, '<leader>ga', vim.lsp.buf.code_action, opts)
+					vim.keymap.set('n', '<leader>gr', vim.lsp.buf.references, opts)
+					vim.keymap.set('n', '<leader>F', function()
+						vim.lsp.buf.format { async = true }
+					end, opts)
+
+					local client = vim.lsp.get_client_by_id(ev.data.client_id)
+
+					-- TODO: find some way to make this only apply to the current line.
+					if client.server_capabilities.inlayHintProvider then
+					    vim.lsp.inlay_hint.enable(false, { bufnr = bufnr })
+					end
+
+					-- None of this semantics tokens business.
+					-- https://www.reddit.com/r/neovim/comments/143efmd/is_it_possible_to_disable_treesitter_completely/
+					client.server_capabilities.semanticTokensProvider = nil
+
+					-- format on save for Rust
+					if client.server_capabilities.documentFormattingProvider then
+						vim.api.nvim_create_autocmd("BufWritePre", {
+							group = vim.api.nvim_create_augroup("RustFormat", { clear = true }),
+							buffer = bufnr,
+							callback = function()
+								vim.lsp.buf.format({ bufnr = bufnr })
+							end,
+						})
+					end
+				end,
 			})
-		end,
+		end
 	},
 	{
 		"iamcco/markdown-preview.nvim",
